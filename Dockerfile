@@ -1,11 +1,11 @@
-FROM golang:alpine AS build
-MAINTAINER b3vis
+FROM moikot/golang-dep AS build
+
 RUN apk add git --no-cache && \
     git clone https://github.com/ircop/smtp2tg /go/src/smtp2tg && \
     go get gopkg.in/telegram-bot-api.v4 && \
     go get github.com/spf13/viper && \
     go get github.com/veqryn/go-email/email
-RUN go build /go/src/smtp2tg/main.go
+RUN CGO_ENABLED=0 GOOS=linux go build /go/src/smtp2tg/main.go
 
 FROM alpine:latest
 COPY --from=build /go/main /usr/local/bin/smtp2tg
