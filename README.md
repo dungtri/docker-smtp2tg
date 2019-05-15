@@ -1,7 +1,6 @@
 # smtp2tg Container
 [![Downloads](https://img.shields.io/docker/pulls/dungtri/smtp2tg.svg)](https://hub.docker.com/r/dungtri/smtp2tg/)
-[![Build Status](https://travis-ci.org/dungtri/docker-smtp2tg.svg?branch=master)](https://travis-ci.org/dungtri/docker-smtp2tg)
-
+[![Build Status](https://drone.dungtri.be/api/badges/dungtri/docker-smtp2tg/status.svg)](https://drone.dungtri.be/dungtri/docker-smtp2tg)
 UPDATE: Add multi arch support: x86, arm and arm64.
 
 Containerised version of ircop's smtp2tg golang app (https://github.com/ircop/smtp2tg)
