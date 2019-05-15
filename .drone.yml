@@ -18,7 +18,7 @@ steps:
   image: plugins/docker
   settings:
     auto_tag: true
-    auto_tag_suffix: linux-amd64
+    auto_tag_suffix: linux-arm64
     dockerfile: Dockerfile
     password:
       from_secret: docker_password
