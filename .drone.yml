@@ -1,9 +1,9 @@
 kind: pipeline
-name: arm64
+name: arm
 
 platform:
   os: linux
-  arch: arm64
+  arch: arm
 
 steps:
 # - name: build
@@ -18,7 +18,7 @@ steps:
   image: plugins/docker
   settings:
     auto_tag: true
-    auto_tag_suffix: linux-arm64
+    auto_tag_suffix: linux-arm
     dockerfile: Dockerfile
     password:
       from_secret: docker_password
