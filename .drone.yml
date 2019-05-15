@@ -1,0 +1,64 @@
+kind: pipeline
+name: arm64
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+# - name: build
+#   image: golang:alpine
+#   commands:
+#   - go get gopkg.in/telegram-bot-api.v4
+#   - go get github.com/spf13/viper
+#   - go get github.com/veqryn/go-email/email
+#   - go build /go/src/smtp2tg/main.go
+
+- name: publish_agent
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    auto_tag_suffix: linux-amd64
+    dockerfile: Dockerfile
+    password:
+      from_secret: docker_password
+    repo: dungtri/drone-agent
+    username:
+      from_secret: docker_username
+  when:
+    event:
+    - push
+    - tag
+
+telegram:
+    image: appleboy/drone-telegram
+    secrets: [ telegram_token, telegram_to ]
+    when:
+      status: [ success, failure ]
+    format: markdown
+    message: >
+      {{#success build.status}}
+      ✅ Build #{{build.number}} of `{{repo.name}}` succeeded.
+
+
+      📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+
+      ```
+      {{commit.message}}
+      ```
+
+
+      🌐 {{ build.link }}
+      {{else}}
+      ❌ Build #{{build.number}} of `{{repo.name}}` failed.
+
+
+      📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+
+      ```
+      {{commit.message}}
+      ```
+
+
+      🌐 {{ build.link }}
+      {{/success}}
