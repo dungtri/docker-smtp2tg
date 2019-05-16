@@ -3,8 +3,6 @@ FROM golang:alpine AS build
 ARG arch=arm
 ENV ARCH=$arch
 
-COPY qemu/qemu-$ARCH-static* /usr/bin/
-
 RUN apk add git --no-cache && \
     git clone https://github.com/ircop/smtp2tg /go/src/smtp2tg && \
     go get gopkg.in/telegram-bot-api.v4 && \
