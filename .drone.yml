@@ -32,6 +32,8 @@ steps:
 
 - name: telegram
   image: appleboy/drone-telegram
+  token: $PLUGIN_TOKEN
+  to: $PLUGIN_TO
   secrets: [ telegram_token, telegram_to ]
   when:
     status: [ success, failure ]
