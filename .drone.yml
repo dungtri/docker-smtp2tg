@@ -22,7 +22,7 @@ steps:
     dockerfile: Dockerfile
     password:
       from_secret: docker_password
-    repo: dungtri/drone-agent
+    repo: dungtri/smtp2tg
     username:
       from_secret: docker_username
   when:
@@ -30,35 +30,35 @@ steps:
     - push
     - tag
 
-telegram:
-    image: appleboy/drone-telegram
-    secrets: [ telegram_token, telegram_to ]
-    when:
-      status: [ success, failure ]
-    format: markdown
-    message: >
-      {{#success build.status}}
-      ✅ Build #{{build.number}} of `{{repo.name}}` succeeded.
+- name: telegram
+  image: appleboy/drone-telegram
+  secrets: [ telegram_token, telegram_to ]
+  when:
+    status: [ success, failure ]
+  format: markdown
+  message: >
+    {{#success build.status}}
+    ✅ Build #{{build.number}} of `{{repo.name}}` succeeded.
 
 
-      📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+    📝 Commit by {{commit.author}} on `{{commit.branch}}`:
 
-      ```
-      {{commit.message}}
-      ```
-
-
-      🌐 {{ build.link }}
-      {{else}}
-      ❌ Build #{{build.number}} of `{{repo.name}}` failed.
+    ```
+    {{commit.message}}
+    ```
 
 
-      📝 Commit by {{commit.author}} on `{{commit.branch}}`:
-
-      ```
-      {{commit.message}}
-      ```
+    🌐 {{ build.link }}
+    {{else}}
+    ❌ Build #{{build.number}} of `{{repo.name}}` failed.
 
 
-      🌐 {{ build.link }}
-      {{/success}}
+    📝 Commit by {{commit.author}} on `{{commit.branch}}`:
+
+    ```
+    {{commit.message}}
+    ```
+
+
+    🌐 {{ build.link }}
+    {{/success}}
