@@ -28,18 +28,18 @@ steps:
 ---
 
 kind: pipeline
-name: arm64
+name: aarch64
 
 platform:
   os: linux
-  arch: arm64
+  arch: aarch64
 
 steps:
 - name: publish_agent
   image: plugins/docker
   settings:
     auto_tag: true
-    auto_tag_suffix: linux-arm64
+    auto_tag_suffix: linux-aarch64
     dockerfile: Dockerfile
     password:
       from_secret: docker_password
