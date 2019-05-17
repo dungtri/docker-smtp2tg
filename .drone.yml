@@ -6,7 +6,7 @@ platform:
   arch: arm
 
 steps:
-- name: linux-arm
+- name: build
   image: plugins/docker
   settings:
     auto_tag: true
@@ -28,14 +28,14 @@ steps:
 ---
 
 kind: pipeline
-name: aarch64
+name: arm64
 
 platform:
   os: linux
   arch: arm64
 
 steps:
-- name: linux-arm64
+- name: build
   image: plugins/docker
   settings:
     auto_tag: true
@@ -64,7 +64,7 @@ platform:
   arch: amd64
 
 steps:
-- name: linux-amd64
+- name: build
   image: plugins/docker
   settings:
     auto_tag: true
@@ -105,7 +105,7 @@ steps:
     - tag
 
 depends_on:
-  - linux-amd64
-  - linux-arm
-  - linux-arm64
+  - amd64
+  - arm
+  - arm64
 
