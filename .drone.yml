@@ -6,13 +6,6 @@ platform:
   arch: arm
 
 steps:
-# - name: build
-#   image: golang:alpine
-#   commands:
-#   - go get gopkg.in/telegram-bot-api.v4
-#   - go get github.com/spf13/viper
-#   - go get github.com/veqryn/go-email/email
-#   - go build /go/src/smtp2tg/main.go
 
 - name: publish_agent
   image: plugins/docker
@@ -25,8 +18,90 @@ steps:
     repo: dungtri/smtp2tg
     username:
       from_secret: docker_username
+    build_args:
+      - ARCH=arm
+
   when:
     event:
     - push
     - tag
 
+---
+
+kind: pipeline
+name: arm64
+
+platform:
+  os: linux
+  arch: arm64
+
+steps:
+
+- name: publish_agent
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    auto_tag_suffix: linux-arm64
+    dockerfile: Dockerfile
+    password:
+      from_secret: docker_password
+    repo: dungtri/smtp2tg
+    username:
+      from_secret: docker_username
+    build_args:
+      - ARCH=arm64
+
+  when:
+    event:
+    - push
+    - tag
+
+---
+
+kind: pipeline
+name: amd64
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+
+- name: publish_agent
+  image: plugins/docker
+  settings:
+    auto_tag: true
+    auto_tag_suffix: linux-amd64
+    dockerfile: Dockerfile
+    password:
+      from_secret: docker_password
+    repo: dungtri/smtp2tg
+    username:
+      from_secret: docker_username
+    build_args:
+      - ARCH=amd64
+
+  when:
+    event:
+    - push
+    - tag
+
+---
+
+kind: pipeline
+name: manifest
+
+steps:
+- name: manifest
+  image: plugins/manifest
+  settings:
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    target: dungtri/smtp2tg:v1.0.0
+    template: dungtri/smtp2tg:v1.0.0-OS-ARCH
+    platforms:
+      - linux/amd64
+      - linux/arm
+      - linux/arm64
