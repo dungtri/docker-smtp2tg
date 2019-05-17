@@ -1,3 +1,4 @@
+---
 kind: pipeline
 name: arm
 
@@ -6,7 +7,7 @@ platform:
   arch: arm
 
 steps:
-- name: publish_agent
+- name: linux-arm
   image: plugins/docker
   settings:
     auto_tag: true
@@ -32,10 +33,10 @@ name: aarch64
 
 platform:
   os: linux
-  arch: aarch64
+  arch: arm64
 
 steps:
-- name: publish_agent
+- name: linux-arm64
   image: plugins/docker
   settings:
     auto_tag: true
@@ -64,7 +65,7 @@ platform:
   arch: amd64
 
 steps:
-- name: publish_agent
+- name: linux-amd64
   image: plugins/docker
   settings:
     auto_tag: true
@@ -102,3 +103,9 @@ steps:
       - linux/amd64
       - linux/arm
       - linux/arm64
+
+depends_on:
+  - linux-amd64
+  - linux-arm
+  - linux-arm64
+
