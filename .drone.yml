@@ -6,7 +6,6 @@ platform:
   arch: arm
 
 steps:
-
 - name: publish_agent
   image: plugins/docker
   settings:
@@ -19,7 +18,7 @@ steps:
     username:
       from_secret: docker_username
     build_args:
-      - ARCH=arm
+      - arch=arm
 
   when:
     event:
@@ -36,7 +35,6 @@ platform:
   arch: arm64
 
 steps:
-
 - name: publish_agent
   image: plugins/docker
   settings:
@@ -49,7 +47,7 @@ steps:
     username:
       from_secret: docker_username
     build_args:
-      - ARCH=arm64
+      - arch=arm64
 
   when:
     event:
@@ -66,7 +64,6 @@ platform:
   arch: amd64
 
 steps:
-
 - name: publish_agent
   image: plugins/docker
   settings:
@@ -79,7 +76,7 @@ steps:
     username:
       from_secret: docker_username
     build_args:
-      - ARCH=amd64
+      - arch=amd64
 
   when:
     event:
@@ -99,8 +96,8 @@ steps:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    target: dungtri/smtp2tg:v1.0.0
-    template: dungtri/smtp2tg:v1.0.0-OS-ARCH
+    target: dungtri/smtp2tg
+    template: dungtri/smtp2tg:OS-ARCH
     platforms:
       - linux/amd64
       - linux/arm
