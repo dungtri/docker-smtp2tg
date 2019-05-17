@@ -102,7 +102,7 @@ steps:
   when:
     event:
     - push
-- tag
+    - tag
 
 depends_on:
   - linux-amd64
