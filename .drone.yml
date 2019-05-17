@@ -39,7 +39,7 @@ steps:
   image: plugins/docker
   settings:
     auto_tag: true
-    auto_tag_suffix: linux-aarch64
+    auto_tag_suffix: linux-arm64
     dockerfile: Dockerfile
     password:
       from_secret: docker_password
@@ -47,7 +47,7 @@ steps:
     username:
       from_secret: docker_username
     build_args:
-      - arch=aarch64
+      - arch=arm64v8
 
   when:
     event:
