@@ -92,16 +92,17 @@ steps:
 - name: manifest
   image: plugins/manifest
   settings:
+    auto_tag: true
+    ignore_missing: true
+    spec: manifest.tmpl
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
-    target: dungtri/smtp2tg
-    template: dungtri/smtp2tg:OS-ARCH
-    platforms:
-      - linux/amd64
-      - linux/arm
-      - linux/arm64
+  when:
+    event:
+    - push
+- tag
 
 depends_on:
   - linux-amd64
