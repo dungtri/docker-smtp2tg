@@ -47,7 +47,7 @@ steps:
     username:
       from_secret: docker_username
     build_args:
-      - arch=arm64
+      - arch=aarch64
 
   when:
     event:
